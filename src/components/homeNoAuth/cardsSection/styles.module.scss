@@ -1,0 +1,59 @@
+@import '../../../../styles/colors.module.scss';
+
+.sectionTitle {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 50px 0px 30px 0px;
+}
+.card {
+    width: 340px;
+    height: 280px;
+    border-radius: 8px;
+    padding: 14px;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: 0.3s;
+    .cardTitle {
+        font-weight: bold;
+        margin-bottom: 8px;
+        transition: 0.3s;
+    }
+    .cardDescription {
+        font-size: 15px;
+        color: $lightGray;
+    }
+    &:hover {
+        transform: scale(1.03);
+        .cardTitle {
+            font-size: 18px;
+            margin-left: 8px;
+        }
+    }
+}
+.card1 {
+    @extend .card;
+    background-image: url("../../../../public/homeNoAuth/imgFrontend.png");
+}
+.card2 {
+    @extend .card;
+    background-image: url("../../../../public/homeNoAuth/imgBackend.png");
+}
+.card3 {
+    @extend .card;
+    background-image: url("../../../../public/homeNoAuth/imgMobile.png");
+}
+.card4 {
+    @extend .card;
+    background-image: url("../../../../public/homeNoAuth/imgGit.png");
+}
+.card5 {
+    @extend .card;
+    background-image: url("../../../../public/homeNoAuth/imgProjects.png");
+}
+.card6 {
+    @extend .card;
+    background-image: url("../../../../public/homeNoAuth/imgCareer.png");
+}
