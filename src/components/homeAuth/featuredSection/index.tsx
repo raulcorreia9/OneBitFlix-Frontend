@@ -20,7 +20,7 @@ const FeaturedSection = () => {
     return (
         <>
             { 
-                data.data.map((course: CourseType) => (
+                data.data?.map((course: CourseType) => (
                     <div
                         style={{ 
                             backgroundImage: `linear-gradient(to bottom, #6666661a, #151515),
