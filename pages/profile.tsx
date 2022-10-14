@@ -21,7 +21,7 @@ const UserInfo = () => {
                 <Container className="py-5">
                     <p className={ styles.title }>Minha Conta</p>
                     <Row className="pt-3 pb-5">
-                        <Col md={4} className={ styles.btnColumnF }>
+                        <Col md={4} className={ styles.btnColumn }>
                             <Button className={ styles.renderForm }>
                                 DADOS PESSOAIS
                             </Button>
