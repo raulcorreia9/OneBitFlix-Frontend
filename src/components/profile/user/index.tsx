@@ -18,7 +18,7 @@ const UserForm = () => {
                     <p className={ styles.memberTimeText }>Membro desde <br /> xx de xxxx de xxxx</p>
                 </div>
                 <hr />
-                <div>
+                <div className={ styles.inputFlexDiv }>
                     <FormGroup>
                         <Label for="firstName" className={ styles.label }>
                             NOME
@@ -52,7 +52,7 @@ const UserForm = () => {
                         </Input>
                     </FormGroup>
                 </div>
-                <div>
+                <div className={ styles.inputNormalDiv }>
                     <FormGroup>
                         <Label for="phone" className={ styles.label }>
                             WHATSAPP/TELEGRAM
@@ -64,7 +64,7 @@ const UserForm = () => {
                             placeholder="(xx) 9xxxx-xxxx"
                             required
                             maxLength={20}
-                            className={ styles.inputFlex }
+                            className={ styles.input }
                             value={"+55 (21) 99999-9999"}
                         >
                         </Input>
@@ -80,15 +80,15 @@ const UserForm = () => {
                             placeholder="Qual o seu e-mail?"
                             required
                             maxLength={20}
-                            className={ styles.inputFlex }
+                            className={ styles.input }
                             value={"jacare@email.com"}
                         >
                         </Input>
                     </FormGroup>
+                    <Button className={ styles.formBtn } outline type="submit">
+                        Salvar Alterações
+                    </Button>
                 </div>
-                <Button className={ styles.formBtn } outline type="submit">
-                    Salvar Alterações
-                </Button>
             </Form>
         </>
     )
