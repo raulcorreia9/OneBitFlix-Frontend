@@ -2,6 +2,7 @@ import useSWR from 'swr';
 import styles from '../../../../styles/slideCategory.module.scss';
 import courseService from '../../../services/courseService';
 import SlideComponent from '../../common/slideComponent';
+import SpinnerComp from '../../common/spinner';
 
 const FeaturedCategory = function () {
     const { data, error } = useSWR("/featured", courseService.getFavCourses);
@@ -11,7 +12,7 @@ const FeaturedCategory = function () {
     }
 
     if(!data) {
-        return (<><p>Loading...</p></>)
+        return <SpinnerComp />;
     }
     
     return (

@@ -2,6 +2,7 @@ import styles from '../../../../styles/slideCategory.module.scss';
 import useSWR from "swr";
 import categoriesService, { CategoryType } from "../../../services/categoriesService";
 import ListCategoriesSlide from '../listCategoriesSlide';
+import SpinnerComp from '../../common/spinner';
 
 const ListCategory = () => {
     const { data, error } = useSWR("/categories", categoriesService.getCategories);
@@ -11,7 +12,7 @@ const ListCategory = () => {
     }
 
     if(!data) {
-        return (<><p>Loading...</p></>)
+        return <SpinnerComp />;
     }
     
     return(

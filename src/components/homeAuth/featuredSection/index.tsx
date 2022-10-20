@@ -5,6 +5,7 @@ import { Button, Container } from 'reactstrap';
 import Link from 'next/link';
 //Components
 import HeaderAuth from '../../common/headerAuth';
+import SpinnerComp from '../../common/spinner';
 
 const FeaturedSection = () => {
     const { data, error } = useSWR("/featured", courseService.getFeaturedCourses);
@@ -14,7 +15,7 @@ const FeaturedSection = () => {
     }
 
     if(!data) {
-        return (<><p>Loading...</p></>)
+        return <SpinnerComp />
     }
 
     return (
