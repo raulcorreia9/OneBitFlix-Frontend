@@ -1,13 +1,13 @@
 import Head from "next/head";
 import { Button, Col, Container, Row } from "reactstrap";
+import { useState } from 'react';
 //Components
 import HeaderAuth from "../src/components/common/headerAuth";
 import UserForm from "../src/components/profile/user";
 import Footer from "../src/components/common/footer";
-import { useState } from 'react';
+import PasswordForm from "../src/components/profile/password";
 
 import styles from "../styles/profile.module.scss";
-import PasswordForm from "../src/components/profile/password";
 
 const UserInfo = () => {
     const [form, setForm] = useState("userForm");
