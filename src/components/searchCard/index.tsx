@@ -10,7 +10,7 @@ interface Props {
 const SearchCard = ({ course }: Props) => {
     return(
         <>
-            <Link href={`/courses/${course.id}`}>
+            <Link href={`/course/${course.id}`}>
                 <div className={ styles.searchCard }>
                     <img 
                         src={ `${process.env.NEXT_PUBLIC_BASEURL}/${course.thumbnailUrl}` } 
