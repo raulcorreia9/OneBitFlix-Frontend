@@ -5,9 +5,11 @@ import { Button, Container } from "reactstrap";
 //Components
 import HeaderAuth from "../../src/components/common/headerAuth";
 //Services
-import courseService, { CourseType } from "../../src/services/courseService";
+import courseService, { CourseType, EpisodeType } from "../../src/services/courseService";
 
 import styles from "../../styles/coursePage.module.scss";
+import SpinnerComp from "../../src/components/common/spinner";
+import EpisodeList from "../../src/components/episodeList";
 
 const CoursePage = () => {
     const [course, setCourse] = useState<CourseType>();
@@ -60,6 +62,10 @@ const CoursePage = () => {
         }
     }
 
+    if(course === undefined) {
+        return <SpinnerComp />
+    }
+
     return (
         <>
         <Head>
@@ -77,6 +83,7 @@ const CoursePage = () => {
                 <HeaderAuth />
             </div>
             <Container className={styles.courseInfo}>
+
                 <p className={styles.courseTitle}>{course?.name}</p>
                 <p className={styles.courseDescription}>{course?.synopsis}</p>
                 <Button outline className={styles.courseBtn}>
@@ -119,6 +126,15 @@ const CoursePage = () => {
                     />
                     )}
                 </div>
+            </Container>
+            <Container className={styles.episodeInfo}>
+                <p className={styles.episodeDivision}>EPISÓDIOS</p>
+                <p className={styles.episodeLength}>
+                    {course?.episodes?.length} episódios
+                </p>
+                {course?.episodes?.map((episode: EpisodeType) => (
+                    <EpisodeList key={episode.id} episode={episode}/>
+                ))}
             </Container>
         </main>
         </>
