@@ -36,5 +36,22 @@
     margin-bottom: 10px;
 }
 .episodeDescription {
-
+    color: $lightGray;
+}
+@media(max-width: 570px) {
+    .episodeCard {
+        width: 80%;
+    }
+}
+@media(max-width: 400px) {
+    .episodeOrderTime {
+        gap: 25px;
+    }
+    .episodeTitle {
+        font-size: 18px;
+    }
+    .episodeDescription {
+        word-break: break-all;
+        font-size: 14px;
+    }
 }
