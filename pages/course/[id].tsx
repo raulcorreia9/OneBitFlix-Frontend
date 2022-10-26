@@ -147,7 +147,7 @@ const CoursePage = () => {
                         </p>
                     ) : (
                         course?.episodes?.map((episode: EpisodeType) => (
-                            <EpisodeList key={episode.id} episode={episode}/>
+                            <EpisodeList key={episode.id} episode={episode} course={course}/>
                         ))
                     )}
                 </Container>
