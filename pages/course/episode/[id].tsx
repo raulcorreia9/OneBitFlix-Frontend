@@ -22,12 +22,9 @@ const EpisodePlayer = () => {
   const [course, setCourse] = useState<CourseType>();
   const [getEpisodeTime, setGetEpisodeTime] = useState(0);
   const [episodeTime, setEpisodeTime] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const playerRef = useRef<ReactPlayer>(null);
-
-  useEffect(() => {
-    handleGetEpisodeTime();
-  }, [router])
 
   const getCourse = async function () {
     if (typeof courseId !== "string") {
@@ -41,49 +38,73 @@ const EpisodePlayer = () => {
   };
 
   const handleLastEpisode = () => {
-    router.push(`/course/episode/${episodeOrder - 1 }?courseid=${courseId}&episodeid=${episodeId - 1}`)
-  }
+    router.push(
+      `/course/episode/${episodeOrder - 1}?courseid=${courseId}&episodeid=${
+        episodeId - 1
+      }`
+    );
+  };
 
   const handleNextEpisode = () => {
-    router.push(`/course/episode/${episodeOrder + 1 }?courseid=${courseId}&episodeid=${episodeId + 1}`)
-  }
+    router.push(
+      `/course/episode/${episodeOrder + 1}?courseid=${courseId}&episodeid=${
+        episodeId + 1
+      }`
+    );
+  };
 
   const handleGetEpisodeTime = async () => {
     const res = await watchEpisodeService.getWatchTime(episodeId);
-    if(res.data !== null) {
+    if (res.data !== null) {
       setGetEpisodeTime(res.data.seconds);
     }
-  }
+  };
 
   const handleSetEpisodeTime = async () => {
     await watchEpisodeService.setWatchTime({
       episodeId: episodeId,
-      seconds: Math.round(episodeTime)
+      seconds: Math.round(episodeTime),
     });
-  }
+  };
 
   const handlePlayerTime = () => {
     playerRef.current?.seekTo(getEpisodeTime);
     setIsReady(true);
-  }
+  };
 
-  if(isReady) {
+  if (isReady) {
     setTimeout(() => {
       handleSetEpisodeTime();
-    }, 1000 * 3)
+    }, 1000 * 3);
   }
 
   useEffect(() => {
     getCourse();
   }, [courseId]);
 
+  useEffect(() => {
+    handleGetEpisodeTime();
+  }, [router]);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("onebitflix-token")) {
+      router.push("/login");
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) {
+    return <SpinnerComp />;
+  }
+
   if (course?.episodes === undefined) {
     return <SpinnerComp />;
   }
-  
-  if(episodeOrder + 1 < course?.episodes.length) {
-    console.log(`time: ${episodeTime}`)
-    if(Math.round(episodeTime ) === course.episodes[episodeOrder].secondsLong) {
+
+  if (episodeOrder + 1 < course?.episodes.length) {
+    console.log(`time: ${episodeTime}`);
+    if (Math.round(episodeTime) === course.episodes[episodeOrder].secondsLong) {
       handleNextEpisode();
     }
   }
@@ -120,32 +141,34 @@ const EpisodePlayer = () => {
               }}
             />
           )}
-          <div className={ styles.episodeButtonDiv }>
-              <Button 
-                className={ styles.episodeButton}
-                disabled={ episodeOrder === 0 ? true : false }
-                onClick={ handleLastEpisode }
-              >
-                <img 
-                    src="/episode/iconArrowLeft.svg" 
-                    alt="Left Arrow"
-                    className={ styles.arrowImg } 
-                />
-              </Button>
-              <Button 
-                className={ styles.episodeButton}
-                disabled={ episodeOrder === (course.episodes.length - 1) ? true : false }
-                onClick={ handleNextEpisode }
-              >
-                <img 
-                    src="/episode/iconArrowRight.svg" 
-                    alt="Right Arrow"
-                    className={ styles.arrowImg } 
-                />
-              </Button>
+          <div className={styles.episodeButtonDiv}>
+            <Button
+              className={styles.episodeButton}
+              disabled={episodeOrder === 0 ? true : false}
+              onClick={handleLastEpisode}
+            >
+              <img
+                src="/episode/iconArrowLeft.svg"
+                alt="Left Arrow"
+                className={styles.arrowImg}
+              />
+            </Button>
+            <Button
+              className={styles.episodeButton}
+              disabled={
+                episodeOrder === course.episodes.length - 1 ? true : false
+              }
+              onClick={handleNextEpisode}
+            >
+              <img
+                src="/episode/iconArrowRight.svg"
+                alt="Right Arrow"
+                className={styles.arrowImg}
+              />
+            </Button>
           </div>
           <p className="text-center py-4">
-              { course.episodes[episodeOrder].synopsis }
+            {course.episodes[episodeOrder].synopsis}
           </p>
         </Container>
       </main>

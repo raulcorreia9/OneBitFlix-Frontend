@@ -11,11 +11,25 @@ import SearchCard from "../src/components/searchCard";
 import { Container } from "reactstrap";
 
 import styles from "../styles/search.module.scss";
+import SpinnerComp from "../src/components/common/spinner";
 
 const Search = () => {
   const router = useRouter();
   const searchName: any = router.query.name!;
   const [searchResult, setSearchResult] = useState<CourseType[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("onebitflix-token")) {
+      router.push("/login");
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) {
+    return <SpinnerComp />;
+  }
 
   const searchCourses = async () => {
     const res = await courseService.getSearch(searchName);
